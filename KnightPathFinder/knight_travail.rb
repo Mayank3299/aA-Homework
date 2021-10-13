@@ -1,4 +1,5 @@
 require_relative "../PolyTree/lib/00_tree_node.rb"
+require "byebug"
 DELTA= [
     [-2,-1],
     [-2,1],
@@ -23,7 +24,7 @@ class KnightPathFinder
 
     def initialize(pos)
         @considered_positions=[pos]
-        @root_node= PolyTree.new(pos)
+        @root_node= PolyTreeNode.new(pos)
         @start_pos= pos
         build_move_tree
     end
@@ -43,10 +44,25 @@ class KnightPathFinder
             node= nodes.shift
             possible_nodes= new_move_positions(node.value)
             possible_nodes.each do |pos|
-                child_node= PolyTree.new(pos)
+                child_node= PolyTreeNode.new(pos)
                 node.add_child(child_node)
                 nodes << child_node
             end
         end
+    end
+
+    def find_path(end_pos)
+        
+        node= @root_node.dfs(end_pos)
+        trace_path_back(node).reverse.map(&:value)
+    end
+
+    def trace_path_back(node)
+        path= []
+        until node.nil?
+            path << node
+            node= node.parent
+        end
+        path
     end
 end
