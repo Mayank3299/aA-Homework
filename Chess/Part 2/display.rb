@@ -36,9 +36,13 @@ class Display
     end
 
     def render
-        system("clear")
-        puts "Use arrow keys or WSAD to move! "
-        print_grid
-        cursor.get_input
+        result= nil
+        until result
+            system("clear")
+            puts "Use arrow keys or WSAD to move! "
+            print_grid
+            cursor.get_input
+        end
+        result
     end
 end
