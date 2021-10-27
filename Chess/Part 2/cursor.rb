@@ -81,7 +81,7 @@ class Cursor
     when :up, :down, :left, :right
       update_pos(MOVES[key])
       nil
-    when :space, :enter
+    when :space, :return
       toggle_selected
       @cursor_pos
     when :ctrl_c
