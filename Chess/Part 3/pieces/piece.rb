@@ -1,6 +1,7 @@
 require "colorize"
 class Piece
-    attr_reader :pos, :board, :color
+    attr_reader :board, :color
+    attr_accessor :pos
 
     def initialize(board, color, pos)
         raise "Invalid pos" unless board.valid_pos?(pos)

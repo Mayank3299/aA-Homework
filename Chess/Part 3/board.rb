@@ -1,10 +1,9 @@
-require_relative "piece"
-require_relative "nullpiece"
+require_relative "pieces"
 class Board
     attr_reader :grid
-    def initialize
+    def initialize(fill_board= true)
         @sentinel= NullPiece.instance
-        @grid= Array.new(8){Array.new(8, @sentinel)}
+        make_board(fill_board)
     end
 
     def [](pos)
@@ -35,9 +34,10 @@ class Board
     end
 
     def move_piece!(start_pos, end_pos)
+        piece= self[start_pos]
         self[end_pos]= piece
         self[start_pos]= @sentinel
-        piece.pos= end_pos
+        piece.pos = end_pos
 
         nil
     end
@@ -73,7 +73,7 @@ class Board
     end
 
     def dup
-        new_board= Board.new
+        new_board= Board.new(false)
 
         pieces.each do |p|
             p.class.new(new_board, p.color, p.pos)
@@ -86,6 +86,34 @@ class Board
         raise "Position not empty" unless empty?(pos)
 
         self[pos] = piece
+    end
+
+    private
+
+    def make_board(fill_board= false)
+        @grid= Array.new(8){Array.new(8, @sentinel)}
+        return unless fill_board
+        %i(white black).each do |color|
+            fill_back_row(color)
+            fill_pawn(color)
+        end
+    end
+
+    def fill_back_row(color)
+        back_pieces = [
+            Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook
+        ]
+        color == :white ? back_pieces : back_pieces.reverse!
+        i = (color == :white ? 7 : 0)
+
+        back_pieces.each_with_index do |piece_class, j|
+            piece_class.new(self, color, [i, j])
+        end
+    end
+
+    def fill_pawn(color)
+        i = (color == :white ? 6 : 1)
+        8.times{|j| Pawn.new(self, color, [i, j])}
     end
 
 end

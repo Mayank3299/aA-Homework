@@ -13,10 +13,11 @@ class Game
     end
 
     def play
+        
         until @board.checkmate?(@current_player)
             begin
-                start_pos, end_pos= @players[@current_player].make_move(display)
-                @board.make_move(@current_player, start_pos, end_pos)
+                start_pos, end_pos= @players[@current_player].make_move(@board)
+                @board.move_piece(@current_player, start_pos, end_pos)
 
                 swap_turn!
                 notify_player
@@ -33,14 +34,18 @@ class Game
     end
 
     def swap_turn!
-        @current_player = (@current_player == :white ? :black : white)
+        @current_player = (@current_player == :white ? :black : :white)
     end
 
     def notify_player
         if @board.in_check?(@current_player)
-            @display.notifications.set_check
+            @display.set_check
         else
-            @display.notifications.uncheck
+            @display.uncheck
         end
     end
+end
+
+if $PROGRAM_NAME == __FILE__
+    g= Game.new.play
 end

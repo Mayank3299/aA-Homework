@@ -18,8 +18,7 @@ class HumanPlayer < Player
                 
                 display.reset! if start_pos
             end
-
-            [start_pos, end_pos]
         end
+        [start_pos, end_pos]
     end
 end
