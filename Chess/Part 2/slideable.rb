@@ -26,6 +26,8 @@ module Slideable
          move_dirs.each do |dx,dy|
             moves.concat(grow_potential_moves(dx,dy))
          end
+
+         moves
     end
 
     def grow_potential_moves(dx,dy)
