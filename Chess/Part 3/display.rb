@@ -1,14 +1,13 @@
 require "colorize"
-require_relative "board"
 require_relative "cursor"
-require_relative "piece"
 
 class Display
 
-    attr_reader :cursor
+    attr_reader :cursor, :board, :notifications
     def initialize(board)
         @board= board
         @cursor= Cursor.new([0,0], board)
+        @notifications= {}
     end
 
     def print_grid
@@ -36,13 +35,24 @@ class Display
     end
 
     def render
-        result= nil
-        until result
-            system("clear")
-            puts "Use arrow keys or WSAD to move! "
-            print_grid
-            cursor.get_input
+        system("clear")
+        puts "Use arrow keys or WSAD to move! "
+        print_grid
+
+        notifications.each do |_key, val|
+            puts val
         end
-        result
+    end
+
+    def reset!
+        @notifications.delete(:error)
+    end
+
+    def set_check
+        @notifications[:check] = "Check"
+    end
+
+    def uncheck
+        @notifications.delete(:check)
     end
 end
