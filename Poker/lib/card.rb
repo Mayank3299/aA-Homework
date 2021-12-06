@@ -2,19 +2,19 @@ class Card
     include Comparable
     POSSIBLE_VALUES= 
     {
-        :ace => 'A', 
-        :king => 'K', 
-        :queen => 'Q', 
-        :jack => 'J', 
-        :ten => 10, 
-        :nine => 9, 
-        :eight => 8, 
-        :seven => 7,
-        :six => 6,
-        :five => 5,
-        :four => 4,
-        :three => 3,
-        :two => 2
+        :two   => "2",
+        :three => "3",
+        :four  => "4",
+        :five  => "5",
+        :six   => "6",
+        :seven => "7",
+        :eight => "8",
+        :nine  => "9",
+        :ten   => "10",
+        :jack  => "J",
+        :queen => "Q",
+        :king  => "K",
+        :ace   => "A"
     }
 
     POSSIBLE_TYPES= 
