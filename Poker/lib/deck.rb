@@ -5,8 +5,8 @@ class Deck
     
     def self.all_cards
         deck= []
-        Card::POSSIBLE_TYPES.each do |type|
-            Card::POSSIBLE_VALUES.each do |value|
+        Card::POSSIBLE_TYPES.keys.each do |type|
+            Card::POSSIBLE_VALUES.keys.each do |value|
                 deck << Card.new(value, type)
             end
         end
