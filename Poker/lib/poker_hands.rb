@@ -1,4 +1,8 @@
+require_relative 'tie_breaker'
+
 module PokerHands
+include TieBreaker
+
     RANKS= [
         :royal_flush,
         :straight_flush,
@@ -18,6 +22,16 @@ module PokerHands
         end
     end
 
+    def <=>(other_obj)
+        if self == other_obj
+            0
+        elsif rank != other_obj.rank
+            RANKS.reverse.index(rank) <=> RANKS.reverse.index(other_obj.rank)
+        else
+            tie_breaker(other_obj)
+        end
+    end
+
     protected
     def card_value_count(value)
         @cards.map(&:value).count(value)
@@ -31,6 +45,18 @@ module PokerHands
         @cards.any? do |card|
             card.value == value_or_type || card.type == value_or_type
         end
+    end
+
+    def high_card
+        @cards.sort.last
+    end
+
+    def set_card(n)
+        cards.find {|card| card_value_count(card.value) == n}
+    end
+
+    def cards_without(value)
+        @cards.select {|card| card.value != value}
     end
 
     private
@@ -56,7 +82,7 @@ module PokerHands
 
     def straight?
         if has_a?(:ace) && has_a?(:two)
-            straight= [:ace] + Card.values[0..3]
+            straight= Card.values[0..3] + [:ace]
         else
             low_index= Card.values.index(@cards.first.value)
             straight= Card.values[low_index..(low_index + 4)]
