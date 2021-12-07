@@ -1,7 +1,8 @@
 require_relative 'card'
-
+require_relative 'poker_hands'
 class Hand
-
+    include PokerHands
+    
     attr_reader :cards
     def initialize(cards)
         raise 'Please provide 5 cards' if cards.count != 5

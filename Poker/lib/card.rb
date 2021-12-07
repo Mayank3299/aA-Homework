@@ -41,6 +41,10 @@ class Card
     def self.types
         POSSIBLE_TYPES.keys
     end
+    
+    def self.royal_values
+        POSSIBLE_VALUES.keys[-5..-1]
+    end
 
     def ==(other_obj)
         (self.type == other_obj.type) && (self.value == other_obj.value)
