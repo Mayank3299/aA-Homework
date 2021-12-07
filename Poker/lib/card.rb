@@ -19,10 +19,10 @@ class Card
 
     POSSIBLE_TYPES= 
     {
-        :hearts => '♥',
-        :spades => '♠',
         :clubs => '♣',
-        :diamonds => '♦' 
+        :diamonds => '♦',
+        :hearts => '♥',
+        :spades => '♠'
     }
 
     attr_reader :value, :type
@@ -58,5 +58,9 @@ class Card
         elsif type != obj.type
             Card.types.index(type) <=> Card.types.index(obj.type)
         end
+    end
+
+    def to_s
+        POSSIBLE_VALUES[value] + POSSIBLE_TYPES[type]
     end
 end
