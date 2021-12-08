@@ -1,7 +1,7 @@
 require 'hand'
 require 'card'
 
-describe 'Hand' do
+describe Hand do
     let(:cards) {[
          Card.new(:ten, :spades),
          Card.new(:five, :hearts),
