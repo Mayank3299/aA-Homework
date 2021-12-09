@@ -1,6 +1,6 @@
 class Player
 
-    attr_reader :bankroll, :hand
+    attr_reader :bankroll, :hand, :current_bet
     def self.buy_in(bankroll)
         Player.new(bankroll)
     end
@@ -14,6 +14,34 @@ class Player
         @hand= hand
     end
 
+    def respond_bet
+        print '(c)all, (b)et, (f)old >'
+        response= gets.chomp.downcase[0]
+        case response
+        when 'c' then :call
+        when 'b' then :bet
+        when 'f' then :fold
+        else
+            puts 'must be (c)all, (b)et or (f)old'
+            respond_bet
+        end
+    end
+
+    def get_bet
+        print "Bet (Bankroll: $#{bankroll}) >"
+        bet= gets.chomp.to_i
+        raise 'not enough money' if bet > bankroll
+        bet
+    end
+
+    def get_cards_to_trade
+        print "Cards to trade? (ex. '1, 4, 5') > "
+        card_indices = gets.chomp.split(', ').map(&:to_i)
+        raise 'cannot trade more than three cards' unless card_indices.count <= 3
+        puts
+        card_indices.map { |i| hand.cards[i - 1] }
+    end
+
     def take_bet(bet_amount)
         amount= bet_amount - @current_bet
         raise 'bet amount should be less than bankroll' unless amount <= @bankroll
@@ -22,12 +50,12 @@ class Player
         amount
     end
 
-    def recieve_winnings(amount)
-        @bankroll += amount
+    def reset_current_bet
+        @current_bet = 0
     end
 
-    def deal_in(hand)
-        @hand= hand
+    def recieve_winnings(amount)
+        @bankroll += amount
     end
 
     def return_cards
@@ -46,5 +74,13 @@ class Player
 
     def folded?
         @folded
+    end
+
+    def trade_cards(old_cards, new_cards)
+        hand.trade_cards(old_cards, new_cards)
+    end
+
+    def <=>(other_player)
+        hand <=> other_player.hand
     end
 end
