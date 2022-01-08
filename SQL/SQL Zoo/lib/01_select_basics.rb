@@ -94,6 +94,6 @@ def just_the_right_size
     FROM
       countries
     WHERE
-      area BETWEEN 200000 AND 250000
+      area BETWEEN 200000 AND 250000;
   SQL
 end
