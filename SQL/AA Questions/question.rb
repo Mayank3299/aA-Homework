@@ -70,4 +70,28 @@ class Question
     def self.most_liked(n)
         QuestionLike.most_liked_questions(n)
     end
+
+    def save
+        if id
+            QuestionsDatabase.instance.execute(<<-SQL, title, body, author_id, id)
+                UPDATE
+                    questions
+                SET
+                    title= ?,
+                    body= ?
+                    author_id= ?
+                WHERE
+                    id = ?;
+            SQL
+        else
+            QuestionsDatabase.instance.execute(<<-SQL, title, body, author_id)
+                INSERT INTO
+                    questions(title, body, author_id)
+                VALUES
+                    (?,?,?);
+            SQL
+
+            @id= QuestionsDatabase.instance.last_insert_row_id
+        end
+    end
 end
