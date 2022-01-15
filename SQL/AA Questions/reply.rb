@@ -1,4 +1,6 @@
 require_relative 'questions_database'
+require_relative 'user'
+require_relative 'question'
 
 class Reply
     attr_reader :id
@@ -29,5 +31,63 @@ class Reply
 
         return nil unless data.length > 0
         Reply.new(data.first)
+    end
+
+    def self.find_by_author_id(author_id)
+        datum= QuestionsDatabase.instance.execute(<<-SQL, author_id)
+            SELECT
+                *
+            FROM
+                replies
+            WHERE
+                author_id = ?;
+        SQL
+
+        return nil unless datum.length > 0
+        datum.map{|data| Reply.new(data)}
+    end
+
+    def self.find_by_question_id(question_id)
+        datum= QuestionsDatabase.instance.execute(<<-SQL, question_id)
+            SELECT
+                *
+            FROM
+                replies
+            WHERE
+                question_id = ?;
+        SQL
+
+        return nil unless datum.length > 0
+        datum.map{|data| Reply.new(data)}
+    end
+
+    def self.find_by_parent_id(parent_reply_id)
+        datum= QuestionsDatabase.instance.execute(<<-SQL, parent_reply_id)
+            SELECT
+                *
+            FROM
+                replies
+            WHERE
+                parent_reply_id = ?;
+        SQL
+
+        return nil unless datum.length > 0
+        datum.map{|data| Reply.new(data)}
+    end
+
+    def author
+        User.find_by_id(author_id)
+    end
+
+    def question
+        Question.find_by_id(question_id)
+    end
+
+    def parent_reply
+        Reply.find_by_id(parent_reply_id)
+    end
+
+    def child_replies
+        Reply.find_by_parent_id(id)
     end
 end
