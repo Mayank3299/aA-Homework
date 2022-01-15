@@ -62,4 +62,24 @@ class QuestionFollow
         return nil unless datum.length > 0
         datum.map{|data| Question.new(data)}
     end
+
+    def self.most_followed_questions(n)
+        datum= QuestionsDatabase.instance.execute(<<-SQL, n)
+            SELECT
+                questions.*
+            FROM
+                questions
+            INNER JOIN
+                question_follows ON questions.id = question_follows.question_id
+            GROUP BY
+                questions.id
+            ORDER BY
+                COUNT(*) DESC
+            LIMIT
+                ?;
+        SQL
+
+        return nil unless datum.length > 0
+        datum.map{|data| Question.new(data)}
+    end
 end

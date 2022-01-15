@@ -2,6 +2,7 @@ require_relative 'questions_database'
 require_relative 'question'
 require_relative 'reply'
 require_relative 'question_follow'
+require_relative 'question_like'
 
 class User
     attr_reader :id
@@ -57,5 +58,23 @@ class User
 
     def followed_questions
         QuestionFollow.followed_questions_for_user_id(id)
+    end
+
+    def liked_questions
+        QuestionLike.liked_questions_for_user_id(id)
+    end
+
+    def average_karma
+        QuestionsDatabase.instance.get_first_value(<<-SQL, id)
+            SELECT
+                CAST(COUNT(question_likes.id) AS FLOAT)/
+                COUNT(DISTINCT(questions.id)) AS Avg_karma
+            FROM
+                questions
+            LEFT OUTER JOIN
+                question_likes ON questions.id = question_likes.question_id
+            WHERE
+                questions.author_id = ?;
+        SQL
     end
 end
