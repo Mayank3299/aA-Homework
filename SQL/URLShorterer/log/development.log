@@ -153,3 +153,71 @@ Migrating to CreateVisits (20220120102023)
   [1m[35m (3.5ms)[0m  [1m[34mSELECT COUNT(DISTINCT "visits"."user_id") FROM "visits" WHERE "visits"."shortened_url_id" = $1[0m  [["shortened_url_id", 1]]
   [1m[36mShortenedUrl Load (7.9ms)[0m  [1m[34mSELECT  "shortened_urls".* FROM "shortened_urls" ORDER BY "shortened_urls"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
   [1m[35m (4.9ms)[0m  [1m[34mSELECT COUNT(DISTINCT "visits"."user_id") FROM "visits" WHERE "visits"."shortened_url_id" = $1 AND (created_at > '2022-01-20 13:30:30.055548')[0m  [["shortened_url_id", 1]]
+  [1m[36mVisit Load (3.4ms)[0m  [1m[34mSELECT "visits".* FROM "visits"[0m
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "mayank.agarwal0903@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "mayank.agarwal0903@gmail.co"], ["LIMIT", 1]]
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "mayank.agarwal0903@gmail.com"], ["LIMIT", 1]]
+  ↳ bin/cli:24
+  [1m[36mShortenedUrl Exists (1.5ms)[0m  [1m[34mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = $1 LIMIT $2[0m  [["short_url", "GxJPWC1zCFFp8xMamkBbng"], ["LIMIT", 1]]
+  ↳ app/models/shortened_url.rb:8
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/shortened_url.rb:13
+  [1m[36mShortenedUrl Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = $1 LIMIT $2[0m  [["short_url", "GxJPWC1zCFFp8xMamkBbng"], ["LIMIT", 1]]
+  ↳ app/models/shortened_url.rb:13
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/shortened_url.rb:13
+  [1m[36mShortenedUrl Create (3.4ms)[0m  [1m[32mINSERT INTO "shortened_urls" ("short_url", "long_url", "submit_user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["short_url", "GxJPWC1zCFFp8xMamkBbng"], ["long_url", "https://github.com/Mayank3299"], ["submit_user_id", 1], ["created_at", "2022-01-20 21:40:56.634140"], ["updated_at", "2022-01-20 21:40:56.634140"]]
+  ↳ app/models/shortened_url.rb:13
+  [1m[35m (2.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/shortened_url.rb:13
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "mayank.agarwal0903@gmail.com"], ["LIMIT", 1]]
+  ↳ bin/cli:24
+  [1m[36mShortenedUrl Load (2.6ms)[0m  [1m[34mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."short_url" = $1 LIMIT $2[0m  [["short_url", "GxJPWC1zCFFp8xMamkBbng"], ["LIMIT", 1]]
+  ↳ bin/cli:45
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/visit.rb:4
+  [1m[36mShortenedUrl Load (0.4ms)[0m  [1m[34mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/models/visit.rb:4
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/visit.rb:4
+  [1m[36mVisit Create (1.0ms)[0m  [1m[32mINSERT INTO "visits" ("user_id", "shortened_url_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", 1], ["shortened_url_id", 2], ["created_at", "2022-01-20 21:41:22.949527"], ["updated_at", "2022-01-20 21:41:22.949527"]]
+  ↳ app/models/visit.rb:4
+  [1m[35m (4.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/visit.rb:4
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "mayank.agarwal0903@gmail.com"], ["LIMIT", 1]]
+  ↳ bin/cli:24
+  [1m[36mShortenedUrl Load (0.7ms)[0m  [1m[34mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."short_url" = $1 LIMIT $2[0m  [["short_url", "GxJPWC1zCFFp8xMamkBbng"], ["LIMIT", 1]]
+  ↳ bin/cli:45
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/visit.rb:4
+  [1m[36mShortenedUrl Load (0.5ms)[0m  [1m[34mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/models/visit.rb:4
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/visit.rb:4
+  [1m[36mVisit Create (0.9ms)[0m  [1m[32mINSERT INTO "visits" ("user_id", "shortened_url_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", 1], ["shortened_url_id", 2], ["created_at", "2022-01-20 21:41:47.179808"], ["updated_at", "2022-01-20 21:41:47.179808"]]
+  ↳ app/models/visit.rb:4
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/visit.rb:4
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "mayank.agarwal0903@gmail.com"], ["LIMIT", 1]]
+  ↳ bin/cli:24
+  [1m[36mShortenedUrl Load (0.8ms)[0m  [1m[34mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."short_url" = $1 LIMIT $2[0m  [["short_url", "GxJPWC1zCFFp8xMamkBbng"], ["LIMIT", 1]]
+  ↳ bin/cli:45
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/visit.rb:4
+  [1m[36mShortenedUrl Load (0.5ms)[0m  [1m[34mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/models/visit.rb:4
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/visit.rb:4
+  [1m[36mVisit Create (0.9ms)[0m  [1m[32mINSERT INTO "visits" ("user_id", "shortened_url_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", 1], ["shortened_url_id", 2], ["created_at", "2022-01-20 21:42:17.782834"], ["updated_at", "2022-01-20 21:42:17.782834"]]
+  ↳ app/models/visit.rb:4
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/visit.rb:4
+  [1m[36mShortenedUrl Load (1.3ms)[0m  [1m[34mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."short_url" = $1 LIMIT $2[0m  [["short_url", "GxJPWC1zCFFp8xMamkBbng"], ["LIMIT", 1]]
+  [1m[36mShortenedUrl Load (1.2ms)[0m  [1m[34mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."short_url" = $1 LIMIT $2[0m  [["short_url", "GxJPWC1zCFFp8xMamkBbng"], ["LIMIT", 1]]
+  [1m[36mShortenedUrl Load (1.0ms)[0m  [1m[34mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."short_url" = $1 LIMIT $2[0m  [["short_url", "GxJPWC1zCFFp8xMamkBbng"], ["LIMIT", 1]]
+  [1m[36mVisit Load (0.9ms)[0m  [1m[34mSELECT "visits".* FROM "visits" WHERE "visits"."shortened_url_id" = $1[0m  [["shortened_url_id", 2]]
+  [1m[36mShortenedUrl Load (2.2ms)[0m  [1m[34mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."short_url" = $1 LIMIT $2[0m  [["short_url", "GxJPWC1zCFFp8xMamkBbng"], ["LIMIT", 1]]
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "visits" WHERE "visits"."shortened_url_id" = $1[0m  [["shortened_url_id", 2]]
+  [1m[36mShortenedUrl Load (1.9ms)[0m  [1m[34mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."short_url" = $1 LIMIT $2[0m  [["short_url", "GxJPWC1zCFFp8xMamkBbng"], ["LIMIT", 1]]
+  [1m[36mVisit Load (2.3ms)[0m  [1m[34mSELECT "visits".* FROM "visits" WHERE "visits"."shortened_url_id" = $1[0m  [["shortened_url_id", 2]]
