@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: shortened_urls
+#
+#  id             :bigint           not null, primary key
+#  short_url      :string
+#  long_url       :string           not null
+#  submit_user_id :integer          not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
 class ShortenedUrl < ApplicationRecord
     validates :submit_user_id, :long_url, presence: true
     validates :short_url, uniqueness: true
@@ -27,6 +38,14 @@ class ShortenedUrl < ApplicationRecord
         foreign_key: :shortened_url_id,
         class_name: :Visit
 
+    has_many :taggings,
+        primary_key: :id,
+        foreign_key: :shortened_url_id,
+        class_name: :Tagging    
+    
+    has_many :tag_topics,
+        through: :taggings,
+        source: :tag_topic
     def num_clicks
         visitors.count
     end

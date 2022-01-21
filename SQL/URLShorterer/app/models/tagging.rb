@@ -1,29 +1,23 @@
 # == Schema Information
 #
-# Table name: visits
+# Table name: taggings
 #
 #  id               :bigint           not null, primary key
-#  user_id          :integer          not null
+#  tag_topic_id     :integer          not null
 #  shortened_url_id :integer          not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
-class Visit < ApplicationRecord
-    
-    def self.record_visit!(user, shortened_url)
-        Visit.create!(
-            user_id: user.id,
-            shortened_url_id: shortened_url.id
-        )
-    end
+class Tagging < ApplicationRecord
+    validates :shortened_url_id, :tag_topic_id, presence: true
 
     belongs_to :shortened_url,
         primary_key: :id,
         foreign_key: :shortened_url_id,
         class_name: :ShortenedUrl
 
-    belongs_to :visitor,
+    belongs_to :tag_topic,
         primary_key: :id,
-        foreign_key: :user_id,
-        class_name: :User
+        foreign_key: :tag_topic_id,
+        class_name: :TagTopic
 end
