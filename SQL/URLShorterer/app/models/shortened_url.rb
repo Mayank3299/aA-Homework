@@ -12,6 +12,7 @@
 class ShortenedUrl < ApplicationRecord
     validates :submit_user_id, :long_url, presence: true
     validates :short_url, uniqueness: true
+    validate :no_spamming, :nonpremium_max
 
     def self.random_code
         loop do
@@ -60,5 +61,24 @@ class ShortenedUrl < ApplicationRecord
             .where('created_at > ?', 10.minutes.ago)
             .distinct
             .count
+    end
+
+    def no_spamming
+        last_minute= ShortenedUrl
+            .where('created_at >= ?', 1.minute.ago)
+            .where(submit_user_id: submit_user_id)
+            .length
+
+        errors[:maximum] << 'of 5 urls per minute' if last_minute >= 5
+    end
+
+    def nonpremium_max
+        return if User.find(self.submit_user_id).premium
+
+        no_of_urls= ShortenedUrl
+            .where(submit_user_id: submit_user_id)
+            .length
+
+        errors[:Only] << 'premium users can create more than 5 urls' if no_of_urls >= 5
     end
 end
