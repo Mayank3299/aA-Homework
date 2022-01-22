@@ -81,4 +81,25 @@ class ShortenedUrl < ApplicationRecord
 
         errors[:Only] << 'premium users can create more than 5 urls' if no_of_urls >= 5
     end
+
+    def self.prune(n)
+        ShortenedUrl
+            .joins(:submitter)
+            .joins('LEFT OUTER JOIN visits ON visits.shortened_url_id = shortened_urls.id')
+            .where("(shortened_urls.id IN (
+                SELECT
+                    shortened_urls.id
+                FROM
+                    shortened_urls
+                INNER JOIN
+                    visits ON visits.shortened_url_id = shortened_urls.id
+                GROUP BY
+                    shortened_urls.id
+                HAVING
+                    MAX(visits.created_at) < \'#{n.minute.ago}\'
+            ) OR (
+                visits.id IS NULL AND shortened_urls.created_at < \'#{n.minute.ago}\'
+            )) AND users.premium = \'f\'")
+            .destroy_all
+    end
 end
