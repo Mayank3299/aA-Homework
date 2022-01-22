@@ -38,11 +38,13 @@ class ShortenedUrl < ApplicationRecord
         primary_key: :id,
         foreign_key: :shortened_url_id,
         class_name: :Visit
+        dependent: :destroy
 
     has_many :taggings,
         primary_key: :id,
         foreign_key: :shortened_url_id,
-        class_name: :Tagging    
+        class_name: :Tagging  
+        dependent: :destroy  
     
     has_many :tag_topics,
         through: :taggings,
