@@ -16,5 +16,17 @@ class Artist < ApplicationRecord
 
   def better_tracks_query
     # TODO: your code here
+    albums= self
+      .albums
+      .select('albums.*, COUNT(*) as track_count')
+      .joins(:tracks)
+      .group('albums.id')
+
+      tracks_count= {}
+      albums.each do |album|
+        tracks_count[album.title]= album.track_count
+      end
+
+      tracks_count
   end
 end
