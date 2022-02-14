@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: answer_choices
+#
+#  id          :bigint           not null, primary key
+#  text        :integer          not null
+#  question_id :integer          not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
 class AnswerChoice < ApplicationRecord
     has_many :responses,
         primary_key: :id,
