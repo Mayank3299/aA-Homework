@@ -12,6 +12,10 @@ Poll.destroy_all
 AnswerChoice.destroy_all
 Response.destroy_all
 
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
+
 u1 = User.create!(username: 'Markov')
 u2 = User.create!(username: 'Gizmo')
 
