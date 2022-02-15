@@ -9,6 +9,8 @@
 #  updated_at :datetime         not null
 #
 class Poll < ApplicationRecord
+    validates :title, presence: true
+
     has_many :questions,
         primary_key: :id,
         foreign_key: :poll_id,
@@ -18,4 +20,9 @@ class Poll < ApplicationRecord
         primary_key: :id,
         foreign_key: :author_id,
         class_name: :User
+    
+    has_many :responses,
+        through: :questions,
+        source: :responses
+
 end
