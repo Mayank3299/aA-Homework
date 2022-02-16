@@ -5428,3 +5428,337 @@ Migrating to CreateResponses (20220207114012)
   [1m[36mAnswerChoice Load (5.6ms)[0m  [1m[34mSELECT  answer_choices.text, COUNT(responses.id) as num_responses FROM "answer_choices" WHERE "answer_choices"."question_id" = $1 LIMIT $2[0m  [["question_id", 1], ["LIMIT", 11]]
   [1m[36mQuestion Load (1.2ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" ORDER BY "questions"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
   [1m[36mAnswerChoice Load (2.5ms)[0m  [1m[34mSELECT answer_choices.text, COUNT(responses.id) as num_responses FROM "answer_choices" LEFT OUTER JOIN "responses" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1 GROUP BY answer_choices.id[0m  [["question_id", 1]]
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPoll Load (6.0ms)[0m  [1m[34m            SELECT
+                polls.*
+            FROM
+                polls
+            INNER JOIN
+                questions ON polls.id = questions.poll_id
+            INNER JOIN
+                answer_choices ON questions.id = answer_choices.questions.id
+            LEFT OUTER JOIN (
+                SELECT
+                    *
+                FROM
+                    responses
+                WHERE
+                    responses.respondent_id = 1
+            ) AS responses ON answer_choices.id = responses.answer_choice_id
+            GROUP BY
+                polls.id
+            HAVING
+                COUNT(DISTINCT questions.id) = COUNT(responses.*)
+[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPoll Load (7.6ms)[0m  [1m[34m            SELECT
+                polls.*
+            FROM
+                polls
+            INNER JOIN
+                questions ON polls.id = questions.poll_id
+            INNER JOIN
+                answer_choices ON questions.id = answer_choices.questions_id
+            LEFT OUTER JOIN (
+                SELECT
+                    *
+                FROM
+                    responses
+                WHERE
+                    responses.respondent_id = 1
+            ) AS responses ON answer_choices.id = responses.answer_choice_id
+            GROUP BY
+                polls.id
+            HAVING
+                COUNT(DISTINCT questions.id) = COUNT(responses.*)
+[0m
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPoll Load (20.2ms)[0m  [1m[34m            SELECT
+                polls.*
+            FROM
+                polls
+            INNER JOIN
+                questions ON polls.id = questions.poll_id
+            INNER JOIN
+                answer_choices ON questions.id = answer_choices.questions_id
+            LEFT OUTER JOIN (
+                SELECT
+                    *
+                FROM
+                    responses
+                WHERE
+                    responses.respondent_id = 1
+            ) AS responses ON answer_choices.id = responses.answer_choice_id
+            GROUP BY
+                polls.id
+            HAVING
+                COUNT(DISTINCT questions.id) = COUNT(responses.*)
+[0m
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPoll Load (6.7ms)[0m  [1m[34m            SELECT
+                polls.*
+            FROM
+                polls
+            INNER JOIN
+                questions ON polls.id = questions.poll_id
+            INNER JOIN
+                answer_choices ON questions.id = answer_choices.question_id
+            LEFT OUTER JOIN (
+                SELECT
+                    *
+                FROM
+                    responses
+                WHERE
+                    responses.respondent_id = 1
+            ) AS responses ON answer_choices.id = responses.answer_choice_id
+            GROUP BY
+                polls.id
+            HAVING
+                COUNT(DISTINCT questions.id) = COUNT(responses.*)
+[0m
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPoll Load (2.6ms)[0m  [1m[34m            SELECT
+                polls.*
+            FROM
+                polls
+            INNER JOIN
+                questions ON polls.id = questions.poll_id
+            INNER JOIN
+                answer_choices ON questions.id = answer_choices.question_id
+            LEFT OUTER JOIN (
+                SELECT
+                    *
+                FROM
+                    responses
+                WHERE
+                    responses.respondent_id = 2
+            ) AS responses ON answer_choices.id = responses.answer_choice_id
+            GROUP BY
+                polls.id
+            HAVING
+                COUNT(DISTINCT questions.id) = COUNT(responses.*)
+[0m
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPoll Load (3.7ms)[0m  [1m[34mSELECT "polls".* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN(
+                SELECT
+                    *
+                FROM
+                    responses
+                WHERE
+                    responses.respondent_id = 2
+            ) AS responses ON answer_choices.id = responses.answer_choice_id GROUP BY polls.id HAVING (COUNT(DISTINCT questions.id) = COUNT(responses.*))[0m
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPoll Load (4.8ms)[0m  [1m[34mSELECT "polls".* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN(
+                SELECT
+                    *
+                FROM
+                    responses
+                WHERE
+                    responses.respondent_id = 1
+            ) AS responses ON answer_choices.id = responses.answer_choice_id GROUP BY polls.id HAVING (COUNT(DISTINCT questions.id) > COUNT(responses.*)) AND (COUNT(responses.*) > 0)[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mPoll Load (1.9ms)[0m  [1m[34mSELECT "polls".* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN(
+                SELECT
+                    *
+                FROM
+                    responses
+                WHERE
+                    responses.respondent_id = 2
+            ) AS responses ON answer_choices.id = responses.answer_choice_id GROUP BY polls.id HAVING (COUNT(DISTINCT questions.id) > COUNT(responses.*)) AND (COUNT(responses.*) > 0)[0m
+  [1m[36mPoll Load (1.0ms)[0m  [1m[34mSELECT "polls".* FROM "polls"[0m
+  [1m[36mPoll Load (1.2ms)[0m  [1m[34mSELECT  "polls".* FROM "polls" ORDER BY "polls"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mResponse Load (1.9ms)[0m  [1m[34mSELECT "responses".* FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" INNER JOIN "questions" ON "answer_choices"."question_id" = "questions"."id" WHERE "questions"."poll_id" = $1[0m  [["poll_id", 1]]
+  [1m[36mQuestion Load (11.1ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[36mQuestion Load (4.4ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" ORDER BY "questions"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mAnswerChoice Load (0.8ms)[0m  [1m[34mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35m (3.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mResponse Load (1.2ms)[0m  [1m[34mSELECT "responses".* FROM "responses" WHERE "responses"."answer_choice_id" = $1[0m  [["answer_choice_id", 1]]
+  [1m[36mAnswerChoice Destroy (10.8ms)[0m  [1m[31mDELETE FROM "answer_choices" WHERE "answer_choices"."id" = $1[0m  [["id", 1]]
+  [1m[36mResponse Load (0.7ms)[0m  [1m[34mSELECT "responses".* FROM "responses" WHERE "responses"."answer_choice_id" = $1[0m  [["answer_choice_id", 2]]
+  [1m[36mAnswerChoice Destroy (1.8ms)[0m  [1m[31mDELETE FROM "answer_choices" WHERE "answer_choices"."id" = $1[0m  [["id", 2]]
+  [1m[36mResponse Load (3.5ms)[0m  [1m[34mSELECT "responses".* FROM "responses" WHERE "responses"."answer_choice_id" = $1[0m  [["answer_choice_id", 3]]
+  [1m[36mResponse Destroy (4.3ms)[0m  [1m[31mDELETE FROM "responses" WHERE "responses"."id" = $1[0m  [["id", 1]]
+  [1m[36mAnswerChoice Destroy (2.5ms)[0m  [1m[31mDELETE FROM "answer_choices" WHERE "answer_choices"."id" = $1[0m  [["id", 3]]
+  [1m[36mQuestion Destroy (3.9ms)[0m  [1m[31mDELETE FROM "questions" WHERE "questions"."id" = $1[0m  [["id", 1]]
+  [1m[35m (11.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mQuestion Load (1.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  [1m[36mAnswerChoice Load (3.1ms)[0m  [1m[34mSELECT "answer_choices".* FROM "answer_choices"[0m
+  [1m[35m (3.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ db/seeds.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:9
+  [1m[36mUser Destroy (1.1ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 1]]
+  ↳ db/seeds.rb:9
+  [1m[35m (2.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:9
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:9
+  [1m[36mUser Destroy (0.6ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 2]]
+  ↳ db/seeds.rb:9
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:9
+  [1m[36mQuestion Load (1.4ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ db/seeds.rb:10
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:10
+  [1m[36mAnswerChoice Load (1.1ms)[0m  [1m[34mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 2]]
+  ↳ db/seeds.rb:10
+  [1m[36mResponse Load (0.7ms)[0m  [1m[34mSELECT "responses".* FROM "responses" WHERE "responses"."answer_choice_id" = $1[0m  [["answer_choice_id", 4]]
+  ↳ db/seeds.rb:10
+  [1m[36mResponse Destroy (0.5ms)[0m  [1m[31mDELETE FROM "responses" WHERE "responses"."id" = $1[0m  [["id", 2]]
+  ↳ db/seeds.rb:10
+  [1m[36mAnswerChoice Destroy (0.4ms)[0m  [1m[31mDELETE FROM "answer_choices" WHERE "answer_choices"."id" = $1[0m  [["id", 4]]
+  ↳ db/seeds.rb:10
+  [1m[36mResponse Load (0.6ms)[0m  [1m[34mSELECT "responses".* FROM "responses" WHERE "responses"."answer_choice_id" = $1[0m  [["answer_choice_id", 5]]
+  ↳ db/seeds.rb:10
+  [1m[36mAnswerChoice Destroy (0.5ms)[0m  [1m[31mDELETE FROM "answer_choices" WHERE "answer_choices"."id" = $1[0m  [["id", 5]]
+  ↳ db/seeds.rb:10
+  [1m[36mResponse Load (1.0ms)[0m  [1m[34mSELECT "responses".* FROM "responses" WHERE "responses"."answer_choice_id" = $1[0m  [["answer_choice_id", 6]]
+  ↳ db/seeds.rb:10
+  [1m[36mAnswerChoice Destroy (3.8ms)[0m  [1m[31mDELETE FROM "answer_choices" WHERE "answer_choices"."id" = $1[0m  [["id", 6]]
+  ↳ db/seeds.rb:10
+  [1m[36mQuestion Destroy (6.4ms)[0m  [1m[31mDELETE FROM "questions" WHERE "questions"."id" = $1[0m  [["id", 2]]
+  ↳ db/seeds.rb:10
+  [1m[35m (8.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:10
+  [1m[36mPoll Load (2.6ms)[0m  [1m[34mSELECT "polls".* FROM "polls"[0m
+  ↳ db/seeds.rb:11
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:11
+  [1m[36mPoll Destroy (0.6ms)[0m  [1m[31mDELETE FROM "polls" WHERE "polls"."id" = $1[0m  [["id", 1]]
+  ↳ db/seeds.rb:11
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:11
+  [1m[36mAnswerChoice Load (0.9ms)[0m  [1m[34mSELECT "answer_choices".* FROM "answer_choices"[0m
+  ↳ db/seeds.rb:12
+  [1m[36mResponse Load (2.2ms)[0m  [1m[34mSELECT "responses".* FROM "responses"[0m
+  ↳ db/seeds.rb:13
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:19
+  [1m[36mUser Exists (1.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Markov"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:19
+  [1m[36mUser Create (8.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", "Markov"], ["created_at", "2022-02-16 06:19:11.515929"], ["updated_at", "2022-02-16 06:19:11.515929"]]
+  ↳ db/seeds.rb:19
+  [1m[35m (2.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:19
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:20
+  [1m[36mUser Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Gizmo"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:20
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", "Gizmo"], ["created_at", "2022-02-16 06:19:11.531772"], ["updated_at", "2022-02-16 06:19:11.531772"]]
+  ↳ db/seeds.rb:20
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:20
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:22
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ db/seeds.rb:22
+  [1m[36mPoll Create (0.6ms)[0m  [1m[32mINSERT INTO "polls" ("title", "author_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "Cats Poll"], ["author_id", 1], ["created_at", "2022-02-16 06:19:11.546555"], ["updated_at", "2022-02-16 06:19:11.546555"]]
+  ↳ db/seeds.rb:22
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:22
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:24
+  [1m[36mPoll Load (0.3ms)[0m  [1m[34mSELECT  "polls".* FROM "polls" WHERE "polls"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ db/seeds.rb:24
+  [1m[36mQuestion Create (0.6ms)[0m  [1m[32mINSERT INTO "questions" ("text", "poll_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["text", "What Cat Is Cutest?"], ["poll_id", 1], ["created_at", "2022-02-16 06:19:11.553908"], ["updated_at", "2022-02-16 06:19:11.553908"]]
+  ↳ db/seeds.rb:24
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:24
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:25
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ db/seeds.rb:25
+  [1m[36mAnswerChoice Create (0.5ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["text", "Markov"], ["question_id", 1], ["created_at", "2022-02-16 06:19:11.561398"], ["updated_at", "2022-02-16 06:19:11.561398"]]
+  ↳ db/seeds.rb:25
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:25
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:26
+  [1m[36mQuestion Load (0.4ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ db/seeds.rb:26
+  [1m[36mAnswerChoice Create (0.5ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["text", "Curie"], ["question_id", 1], ["created_at", "2022-02-16 06:19:11.567105"], ["updated_at", "2022-02-16 06:19:11.567105"]]
+  ↳ db/seeds.rb:26
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:26
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:27
+  [1m[36mQuestion Load (0.4ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ db/seeds.rb:27
+  [1m[36mAnswerChoice Create (0.4ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["text", "Sally"], ["question_id", 1], ["created_at", "2022-02-16 06:19:11.572753"], ["updated_at", "2022-02-16 06:19:11.572753"]]
+  ↳ db/seeds.rb:27
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:27
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:29
+  [1m[36mPoll Load (0.4ms)[0m  [1m[34mSELECT  "polls".* FROM "polls" WHERE "polls"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ db/seeds.rb:29
+  [1m[36mQuestion Create (0.5ms)[0m  [1m[32mINSERT INTO "questions" ("text", "poll_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["text", "Which Toy Is Most Fun?"], ["poll_id", 1], ["created_at", "2022-02-16 06:19:11.578541"], ["updated_at", "2022-02-16 06:19:11.578541"]]
+  ↳ db/seeds.rb:29
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:29
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:30
+  [1m[36mQuestion Load (0.4ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ db/seeds.rb:30
+  [1m[36mAnswerChoice Create (0.4ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["text", "String"], ["question_id", 2], ["created_at", "2022-02-16 06:19:11.584751"], ["updated_at", "2022-02-16 06:19:11.584751"]]
+  ↳ db/seeds.rb:30
+  [1m[35m (4.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:30
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:31
+  [1m[36mQuestion Load (0.5ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ db/seeds.rb:31
+  [1m[36mAnswerChoice Create (0.7ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["text", "Ball"], ["question_id", 2], ["created_at", "2022-02-16 06:19:11.594200"], ["updated_at", "2022-02-16 06:19:11.594200"]]
+  ↳ db/seeds.rb:31
+  [1m[35m (5.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:31
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:32
+  [1m[36mQuestion Load (0.5ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ db/seeds.rb:32
+  [1m[36mAnswerChoice Create (0.7ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["text", "Bird"], ["question_id", 2], ["created_at", "2022-02-16 06:19:11.604919"], ["updated_at", "2022-02-16 06:19:11.604919"]]
+  ↳ db/seeds.rb:32
+  [1m[35m (4.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:32
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:34
+  [1m[36mAnswerChoice Load (0.5ms)[0m  [1m[34mSELECT  "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/response.rb:12
+  [1m[36mQuestion Load (0.9ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/response.rb:30
+  [1m[36mResponse Exists (1.0ms)[0m  [1m[34mSELECT  1 AS one FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1 AND "responses"."id" IS NOT NULL AND "responses"."respondent_id" = $2 LIMIT $3[0m  [["question_id", 1], ["respondent_id", 2], ["LIMIT", 1]]
+  ↳ app/models/response.rb:34
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/response.rb:44
+  [1m[36mPoll Load (0.3ms)[0m  [1m[34mSELECT  "polls".* FROM "polls" WHERE "polls"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/response.rb:44
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ db/seeds.rb:34
+  [1m[36mResponse Create (0.5ms)[0m  [1m[32mINSERT INTO "responses" ("answer_choice_id", "respondent_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer_choice_id", 3], ["respondent_id", 2], ["created_at", "2022-02-16 06:19:11.669967"], ["updated_at", "2022-02-16 06:19:11.669967"]]
+  ↳ db/seeds.rb:34
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:34
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:38
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1m[34mSELECT  "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/response.rb:12
+  [1m[36mQuestion Load (0.5ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/response.rb:30
+  [1m[36mResponse Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1 AND "responses"."id" IS NOT NULL AND "responses"."respondent_id" = $2 LIMIT $3[0m  [["question_id", 2], ["respondent_id", 2], ["LIMIT", 1]]
+  ↳ app/models/response.rb:34
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/models/response.rb:44
+  [1m[36mPoll Load (0.4ms)[0m  [1m[34mSELECT  "polls".* FROM "polls" WHERE "polls"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/response.rb:44
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ db/seeds.rb:38
+  [1m[36mResponse Create (0.4ms)[0m  [1m[32mINSERT INTO "responses" ("answer_choice_id", "respondent_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer_choice_id", 4], ["respondent_id", 2], ["created_at", "2022-02-16 06:19:11.683131"], ["updated_at", "2022-02-16 06:19:11.683131"]]
+  ↳ db/seeds.rb:38
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:38
