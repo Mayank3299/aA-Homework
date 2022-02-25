@@ -1764,3 +1764,90 @@ Processing by CommentsController#index as */*
 Completed 200 OK in 57ms (Views: 13.7ms | ActiveRecord: 11.3ms)
 
 
+Started GET "/users" for ::1 at 2022-02-25 12:08:59 +0530
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/mayankagarwal/gems/gems/activerecord-5.2.6.2/lib/active_record/log_subscriber.rb:98
+Processing by UsersController#index as */*
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8
+Completed 200 OK in 61ms (Views: 12.8ms | ActiveRecord: 13.8ms)
+
+
+Started GET "/users/Arpit" for ::1 at 2022-02-25 12:10:47 +0530
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/mayankagarwal/gems/gems/activerecord-5.2.6.2/lib/active_record/log_subscriber.rb:98
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"Arpit"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 0], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:21
+Completed 404 Not Found in 42ms (ActiveRecord: 9.4ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=Arpit):
+  
+app/controllers/users_controller.rb:21:in `show'
+Started GET "/users?Arpit" for ::1 at 2022-02-25 12:10:54 +0530
+Processing by UsersController#index as */*
+  Parameters: {"Arpit"=>nil}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8
+Completed 200 OK in 16ms (Views: 13.9ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/users?query=%20Arpit" for ::1 at 2022-02-25 12:11:13 +0530
+Processing by UsersController#index as */*
+  Parameters: {"query"=>" Arpit"}
+  [1m[36mUser Load (4.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE (username LIKE '% Arpit%')[0m
+  ↳ app/controllers/users_controller.rb:8
+Completed 200 OK in 8ms (Views: 2.0ms | ActiveRecord: 4.5ms)
+
+
+Started GET "/users?query" for ::1 at 2022-02-25 12:11:18 +0530
+Processing by UsersController#index as */*
+  Parameters: {"query"=>nil}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8
+Completed 200 OK in 6ms (Views: 3.4ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/users?query=%20Arpit%20Agarwal" for ::1 at 2022-02-25 12:11:26 +0530
+Processing by UsersController#index as */*
+  Parameters: {"query"=>" Arpit Agarwal"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE (username LIKE '% Arpit Agarwal%')[0m
+  ↳ app/controllers/users_controller.rb:8
+Completed 200 OK in 3ms (Views: 1.2ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/users?query%20=%20Arpit%20Agarwal" for ::1 at 2022-02-25 12:11:33 +0530
+Processing by UsersController#index as */*
+  Parameters: {"query "=>" Arpit Agarwal"}
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8
+Completed 200 OK in 7ms (Views: 5.2ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/users?query=%20Arpit" for ::1 at 2022-02-25 12:12:23 +0530
+Processing by UsersController#index as */*
+  Parameters: {"query"=>" Arpit"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE (username LIKE '% Arpit%')[0m
+  ↳ app/controllers/users_controller.rb:8
+Completed 200 OK in 3ms (Views: 1.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/users?query=Arpit" for ::1 at 2022-02-25 12:12:31 +0530
+Processing by UsersController#index as */*
+  Parameters: {"query"=>"Arpit"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE (username LIKE '%Arpit%')[0m
+  ↳ app/controllers/users_controller.rb:8
+Completed 200 OK in 3ms (Views: 1.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/users?query=Agarwal" for ::1 at 2022-02-25 12:12:39 +0530
+Processing by UsersController#index as */*
+  Parameters: {"query"=>"Agarwal"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE (username LIKE '%Agarwal%')[0m
+  ↳ app/controllers/users_controller.rb:8
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.6ms)
+
+
